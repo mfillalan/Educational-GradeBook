@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.Date;
 import java.util.Collection;
 
-//Commit test.
 public class Assignment {
 	protected Hashtable<Long, Submission> submissions;
 	protected Date dueDate;
