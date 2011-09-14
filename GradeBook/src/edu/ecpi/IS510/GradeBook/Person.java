@@ -1,11 +1,24 @@
 package edu.ecpi.IS510.GradeBook;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "people")
+
 public class Person {
+	@DatabaseField
 	protected String firstName;
+	@DatabaseField
 	protected String lastName;
+	@DatabaseField
 	protected String address;
+	@DatabaseField
 	protected String phone;
+	@DatabaseField
 	protected String email;
+	
+	public Person(){
+	}
 	
 	public String getFirstName(){
 		return firstName;
