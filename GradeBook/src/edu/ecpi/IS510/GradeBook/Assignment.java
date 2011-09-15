@@ -3,12 +3,28 @@ package edu.ecpi.IS510.GradeBook;
 import java.util.Hashtable;
 import java.util.Date;
 import java.util.Collection;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-public class Assignment {
+@DatabaseTable (tableName = "assignments")
+public class Assignment implements Serializable{
+	private static final long serialVersionUID = 729937877153222955L;
+	@DatabaseField(id = true)
+	protected int assignmentID;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	protected Hashtable<Long, Submission> submissions;
+	@DatabaseField
 	protected Date dueDate;
+	@DatabaseField
 	protected float weight;
+	@DatabaseField
 	protected String title;
+	@DatabaseField
 	protected String description;
 	
 	public Assignment(String title, String description, Date dueDate, float weight){
@@ -70,4 +86,15 @@ public class Assignment {
 	public void setDescription(String description){
 		this.description = description;
 	}
+	
+	private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+	     //always perform the default de-serialization first
+	     aInputStream.defaultReadObject();
+	}
+
+	
+	private void writeObject(ObjectOutputStream aOutputStream) throws IOException {
+	      //perform the default serialization for all non-transient, non-static fields
+	      aOutputStream.defaultWriteObject();
+  }
 }

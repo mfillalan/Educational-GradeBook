@@ -22,7 +22,7 @@ public class Main {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		// TODO Auto-generated method stub		
+		//TODO Auto-generated method stub		
 		
 		//Create our database URL.
         String databaseUrl = "jdbc:h2:~/GradeBook";
@@ -30,11 +30,28 @@ public class Main {
         //Create a connection source for our database.
         ConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl, "sa", "");
 
-        // Create DAO's
+        //Create DAO's
         Dao<Student, String> studentDao = DaoManager.createDao(connectionSource, Student.class);
-
-        // if you need to create the 'accounts' table make this call
-        TableUtils.createTable(connectionSource, Student.class);
+        Dao<Assignment, String> assignmentDao = DaoManager.createDao(connectionSource, Assignment.class);
+        Dao<Course, String> courseDao = DaoManager.createDao(connectionSource, Course.class);
+        Dao<Employee, String> employeeDao = DaoManager.createDao(connectionSource, Employee.class);
+        Dao<Person, String> personDao = DaoManager.createDao(connectionSource, Person.class);
+        Dao<Submission, String> submissionDao = DaoManager.createDao(connectionSource, Submission.class);
+        Dao<Teacher, String> teacherDao = DaoManager.createDao(connectionSource, Teacher.class);
+        
+        //Create tables if they don't exist.
+        TableUtils.createTableIfNotExists(connectionSource, Student.class);
+        TableUtils.createTableIfNotExists(connectionSource, Assignment.class);
+        TableUtils.createTableIfNotExists(connectionSource, Course.class);
+        TableUtils.createTableIfNotExists(connectionSource, Employee.class);
+        TableUtils.createTableIfNotExists(connectionSource, Person.class);
+        TableUtils.createTableIfNotExists(connectionSource, Submission.class);
+        TableUtils.createTableIfNotExists(connectionSource, Teacher.class);
+        
+        Student student1 = new Student();
+        student1.setFirstName("Brian");
+        student1.setLastName("Griffin");
+        studentDao.createOrUpdate(student1);
 		
 		Course course = new Course("IS510", "Object-Oriented Programming");
 		Assignment a1 = new Assignment("Homework 1", "Do some stuff", new Date(), 0.3f);
@@ -44,6 +61,10 @@ public class Main {
 		a1.addSubmission(s1);
 		a1.addSubmission(s2);
 		course.addAssignment(a1);
+		courseDao.createOrUpdate(course);
+		assignmentDao.createOrUpdate(a1);
+		submissionDao.createOrUpdate(s1);
+		submissionDao.createOrUpdate(s2);
 
 		System.out.println("Assignment = " + a1.getDueDate() + ". Weight = " + a1.getWeight() + ". Title = " + a1.getTitle() + ". Description = " + a1.getDescription());
 		

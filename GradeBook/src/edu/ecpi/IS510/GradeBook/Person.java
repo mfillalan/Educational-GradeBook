@@ -4,7 +4,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "people")
-
 public class Person {
 	@DatabaseField
 	protected String firstName;
@@ -14,7 +13,7 @@ public class Person {
 	protected String address;
 	@DatabaseField
 	protected String phone;
-	@DatabaseField
+	@DatabaseField(id = true)
 	protected String email;
 	
 	public Person(){
