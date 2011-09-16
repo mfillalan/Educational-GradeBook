@@ -8,8 +8,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 public class DatabaseController {
-	
-    protected ConnectionSource connectionSource;    
+    protected ConnectionSource connectionSource;
     public Dao<Student, String> studentDao;
     public Dao<Assignment, String> assignmentDao;
     public Dao<Course, String> courseDao;

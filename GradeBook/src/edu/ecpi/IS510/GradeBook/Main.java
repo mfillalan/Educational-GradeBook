@@ -20,7 +20,6 @@ public class Main {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		
 		String databaseUrl = "jdbc:h2:~/GradeBook";
 		String username = "sa";
 		String password = "";
