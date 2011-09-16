@@ -5,8 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "students")
 public class Student extends Person{
-	@DatabaseField
-	protected long studentID;
+	@DatabaseField protected long studentID;
 	
 	public Student(){
 	}

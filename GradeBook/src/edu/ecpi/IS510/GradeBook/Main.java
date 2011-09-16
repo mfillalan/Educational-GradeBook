@@ -8,15 +8,10 @@
 package edu.ecpi.IS510.GradeBook;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
-
-import com.j256.ormlite.dao.*;
 import com.j256.ormlite.jdbc.*;
 import com.j256.ormlite.support.*;
-import com.j256.ormlite.table.*;
 
 public class Main {
 
@@ -25,7 +20,13 @@ public class Main {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		//TODO Auto-generated method stub	
+		//TODO Auto-generated method stub
+		
+		String databaseUrl = "jdbc:h2:~/GradeBook";
+		String username = "sa";
+		String password = "";
+	    ConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl, username, password);
+		DatabaseController dbController = new DatabaseController(connectionSource);
 		
 		List<Student> students;
 		List<Assignment> assignments;
@@ -34,46 +35,25 @@ public class Main {
 		List<Person> people;
 		List<Teacher> teachers;
 		
-		//Create our database URL.
-        String databaseUrl = "jdbc:h2:~/GradeBook";
-        
-        //Create a connection source for our database.
-        ConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl, "sa", "");
-
-        //Create DAO's
-        Dao<Student, String> studentDao = DaoManager.createDao(connectionSource, Student.class);
-        students = studentDao.queryForAll();
-        Dao<Assignment, String> assignmentDao = DaoManager.createDao(connectionSource, Assignment.class);
-        assignments = assignmentDao.queryForAll();
-        Dao<Course, String> courseDao = DaoManager.createDao(connectionSource, Course.class);
-        courses = courseDao.queryForAll();
-        Dao<Employee, String> employeeDao = DaoManager.createDao(connectionSource, Employee.class);
-        employees = employeeDao.queryForAll();
-        Dao<Person, String> personDao = DaoManager.createDao(connectionSource, Person.class);
-        people = personDao.queryForAll();        
-        Dao<Teacher, String> teacherDao = DaoManager.createDao(connectionSource, Teacher.class);
-        teachers = teacherDao.queryForAll();
-        
-        //Create tables if they don't exist.
-        TableUtils.createTableIfNotExists(connectionSource, Student.class);
-        TableUtils.createTableIfNotExists(connectionSource, Assignment.class);
-        TableUtils.createTableIfNotExists(connectionSource, Course.class);
-        TableUtils.createTableIfNotExists(connectionSource, Employee.class);
-        TableUtils.createTableIfNotExists(connectionSource, Person.class);
-        TableUtils.createTableIfNotExists(connectionSource, Submission.class);
-        TableUtils.createTableIfNotExists(connectionSource, Teacher.class); 
-
-		//System.out.println("Assignment = " + a1.getDueDate() + ". Weight = " + a1.getWeight() + ". Title = " + a1.getTitle() + ". Description = " + a1.getDescription());
+        students = dbController.studentDao.queryForAll();        
+        assignments = dbController.assignmentDao.queryForAll();
+        courses = dbController.courseDao.queryForAll();
+        employees = dbController.employeeDao.queryForAll();
+        people = dbController.personDao.queryForAll();
+        teachers = dbController.teacherDao.queryForAll();
 		
-		Iterator<Student> studentIterator = students.iterator();
-		while(studentIterator.hasNext()){
-			Student s = studentIterator.next();
-			System.out.println(s.toString());
-		}
-		
-		Iterator<Assignment> assignmentIterator = assignments.iterator();
-		while(assignmentIterator.hasNext()){
-			Assignment s = assignmentIterator.next();
+		printList(students);
+		printList(assignments);
+		printList(courses);
+		printList(employees);
+		printList(people);
+		printList(teachers);
+	}
+	
+	private static void printList(List list){
+		Iterator<Object> iterator = list.iterator();
+		while(iterator.hasNext()){
+			Object s = iterator.next();
 			System.out.println(s.toString());
 		}
 	}

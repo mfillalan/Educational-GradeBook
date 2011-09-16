@@ -14,16 +14,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "courses")
 public class Course implements Serializable{
 	//TODO: Revisit the cycle between students and courses (potential memory leaks)
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	Vector<Student> students;
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	Vector<Assignment> assignments;
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	Hashtable<Long,Float> finalGrades;
-	@DatabaseField(id = true)
-	String courseNumber;
-	@DatabaseField
-	String title;
+	@DatabaseField(dataType=DataType.SERIALIZABLE) Vector<Student> students;
+	@DatabaseField(dataType=DataType.SERIALIZABLE) Vector<Assignment> assignments;
+	@DatabaseField(dataType=DataType.SERIALIZABLE) Hashtable<Long,Float> finalGrades;
+	@DatabaseField(id = true) String courseNumber;
+	@DatabaseField String title;
 	private static final long serialVersionUID = 1L;
 	
 	public Course(String courseNumber, String title){

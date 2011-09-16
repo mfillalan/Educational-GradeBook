@@ -6,10 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "teachers")
 public class Teacher extends Employee {
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	protected Course[] courseList;
-	@DatabaseField
-	protected int courseCount;
+	@DatabaseField(dataType=DataType.SERIALIZABLE) protected Course[] courseList;
+	@DatabaseField protected int courseCount;
 	
 	public Teacher(){
 		courseList = new Course[4];

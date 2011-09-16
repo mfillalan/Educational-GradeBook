@@ -5,16 +5,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "people")
 public class Person {
-	@DatabaseField
-	protected String firstName;
-	@DatabaseField
-	protected String lastName;
-	@DatabaseField
-	protected String address;
-	@DatabaseField
-	protected String phone;
-	@DatabaseField(id = true)
-	protected String email;
+	@DatabaseField protected String firstName;
+	@DatabaseField protected String lastName;
+	@DatabaseField protected String address;
+	@DatabaseField protected String phone;
+	@DatabaseField(id = true) protected String email;
 	
 	public Person(){
 	}

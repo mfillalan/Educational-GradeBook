@@ -12,14 +12,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "submissions")
 public class Submission implements Serializable{
 	private static final long serialVersionUID = -368784444373150198L;
-	@DatabaseField(generatedId = true)
-	long submissionID;
-	@DatabaseField
-	long studentID;
-	@DatabaseField
-	float grade;
-	@DatabaseField
-	Date dateSubmitted;
+	@DatabaseField(generatedId = true) long submissionID;
+	@DatabaseField long studentID;
+	@DatabaseField float grade;
+	@DatabaseField Date dateSubmitted;
 	
 	public Submission(long studentID, Date dateSubmitted, float grade){
 		this.studentID = studentID;
