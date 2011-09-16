@@ -82,4 +82,8 @@ public class Course implements Serializable{
 	      //perform the default serialization for all non-transient, non-static fields
 	      aOutputStream.defaultWriteObject();
    }
+	
+	public String toString(){
+		return "Course number: " + courseNumber + " Course title: " + title;
+	}
 }

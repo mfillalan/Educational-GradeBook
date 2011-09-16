@@ -18,4 +18,16 @@ public class Student extends Person{
 	public void setStudentID(long studentID){
 		this.studentID = studentID;
 	}
+	
+	public String toString(){
+		String returnString = "";
+		
+		returnString =  "Name: " + firstName + " " + lastName + "\n";
+		returnString += "Student ID: " + studentID + "\n";
+		returnString += "Address: " + address + "\n";
+		returnString += "Phone: " + phone + "\n";
+		returnString += "E-mail: " + email + "\n";
+		
+		return returnString;
+	}
 }

@@ -53,4 +53,27 @@ public class Teacher extends Employee {
 		}
 		return found;
 	}
+	
+	public String toString(){
+		String returnString = "";
+		
+		returnString =  "Name: " + firstName + " " + lastName + "\n";
+		returnString += "Employee ID: " + employeeID + "\n";
+		returnString += "Address: " + address + "\n";
+		returnString += "Phone: " + phone + "\n";
+		returnString += "E-mail: " + email + "\n";
+		returnString += firstName + " is currently teaching the following courses: ";
+		//Add each course to returnString.
+		for( int i = 0; i < courseList.length; i++){
+			//Add a comma if this isn't the last course.
+			if( (i+1) != courseList.length)			{
+				returnString += (i+1) + ": " + courseList[i].getTitle() + ", ";
+			}
+			//Don't add a comma if this is the last course.
+			else{
+				returnString += (i+1) + ": " + courseList[i].getTitle();
+			}
+		}
+		return returnString;
+	}
 }

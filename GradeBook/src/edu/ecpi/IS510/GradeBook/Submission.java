@@ -65,5 +65,8 @@ public class Submission implements Serializable{
 	      //perform the default serialization for all non-transient, non-static fields
 	      aOutputStream.defaultWriteObject();
     }
-
+	
+	public String toString(){
+		return "StudentID = " + studentID + " Date Submitted = " + dateSubmitted + " Grade = " + grade + "\n";
+	}
 }

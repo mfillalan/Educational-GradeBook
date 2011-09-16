@@ -3,6 +3,7 @@ package edu.ecpi.IS510.GradeBook;
 import java.util.Hashtable;
 import java.util.Date;
 import java.util.Collection;
+import java.util.Iterator;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -96,5 +97,23 @@ public class Assignment implements Serializable{
 	private void writeObject(ObjectOutputStream aOutputStream) throws IOException {
 	      //perform the default serialization for all non-transient, non-static fields
 	      aOutputStream.defaultWriteObject();
-  }
+    }
+	
+	public String toString(){
+		String returnString = "";
+		
+		returnString =  "Assignment: " + title + "\n";
+		returnString += "Due on: " + dueDate + "\n";
+		returnString += "Weight: " + weight + "\n";
+		returnString += "Description: " + description + "\n";
+		returnString += "Submissions: " +  "\n";
+		
+		Iterator<Submission> submissionIterator = submissions.values().iterator();
+		while(submissionIterator.hasNext()){
+			Submission s = submissionIterator.next();
+			returnString += s.toString();
+		}
+		
+		return returnString;
+	}
 }

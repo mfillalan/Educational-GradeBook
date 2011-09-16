@@ -10,6 +10,9 @@ package edu.ecpi.IS510.GradeBook;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.jdbc.*;
 import com.j256.ormlite.support.*;
@@ -22,7 +25,14 @@ public class Main {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		//TODO Auto-generated method stub		
+		//TODO Auto-generated method stub	
+		
+		List<Student> students;
+		List<Assignment> assignments;
+		List<Course> courses;
+		List<Employee> employees;
+		List<Person> people;
+		List<Teacher> teachers;
 		
 		//Create our database URL.
         String databaseUrl = "jdbc:h2:~/GradeBook";
@@ -32,12 +42,17 @@ public class Main {
 
         //Create DAO's
         Dao<Student, String> studentDao = DaoManager.createDao(connectionSource, Student.class);
+        students = studentDao.queryForAll();
         Dao<Assignment, String> assignmentDao = DaoManager.createDao(connectionSource, Assignment.class);
+        assignments = assignmentDao.queryForAll();
         Dao<Course, String> courseDao = DaoManager.createDao(connectionSource, Course.class);
+        courses = courseDao.queryForAll();
         Dao<Employee, String> employeeDao = DaoManager.createDao(connectionSource, Employee.class);
+        employees = employeeDao.queryForAll();
         Dao<Person, String> personDao = DaoManager.createDao(connectionSource, Person.class);
-        Dao<Submission, String> submissionDao = DaoManager.createDao(connectionSource, Submission.class);
+        people = personDao.queryForAll();        
         Dao<Teacher, String> teacherDao = DaoManager.createDao(connectionSource, Teacher.class);
+        teachers = teacherDao.queryForAll();
         
         //Create tables if they don't exist.
         TableUtils.createTableIfNotExists(connectionSource, Student.class);
@@ -46,32 +61,20 @@ public class Main {
         TableUtils.createTableIfNotExists(connectionSource, Employee.class);
         TableUtils.createTableIfNotExists(connectionSource, Person.class);
         TableUtils.createTableIfNotExists(connectionSource, Submission.class);
-        TableUtils.createTableIfNotExists(connectionSource, Teacher.class);
-        
-        Student student1 = new Student();
-        student1.setFirstName("Brian");
-        student1.setLastName("Griffin");
-        studentDao.createOrUpdate(student1);
-		
-		Course course = new Course("IS510", "Object-Oriented Programming");
-		Assignment a1 = new Assignment("Homework 1", "Do some stuff", new Date(), 0.3f);
-		Submission s1 = new Submission(12345, new Date(), 20);
-		Submission s2 = new Submission(54321, new Date(), 80);
+        TableUtils.createTableIfNotExists(connectionSource, Teacher.class); 
 
-		a1.addSubmission(s1);
-		a1.addSubmission(s2);
-		course.addAssignment(a1);
-		courseDao.createOrUpdate(course);
-		assignmentDao.createOrUpdate(a1);
-		submissionDao.createOrUpdate(s1);
-		submissionDao.createOrUpdate(s2);
-
-		System.out.println("Assignment = " + a1.getDueDate() + ". Weight = " + a1.getWeight() + ". Title = " + a1.getTitle() + ". Description = " + a1.getDescription());
+		//System.out.println("Assignment = " + a1.getDueDate() + ". Weight = " + a1.getWeight() + ". Title = " + a1.getTitle() + ". Description = " + a1.getDescription());
 		
-		Iterator<Submission> submissions = a1.getSubmissions().iterator();
-		while(submissions.hasNext()){
-			Submission s = submissions.next();
-			System.out.println("StudentID = " + s.getStudentID() + ". Date Submitted = " + s.getDateSubmitted() + ". Grade = " + s.getGrade() + ".");
+		Iterator<Student> studentIterator = students.iterator();
+		while(studentIterator.hasNext()){
+			Student s = studentIterator.next();
+			System.out.println(s.toString());
+		}
+		
+		Iterator<Assignment> assignmentIterator = assignments.iterator();
+		while(assignmentIterator.hasNext()){
+			Assignment s = assignmentIterator.next();
+			System.out.println(s.toString());
 		}
 	}
 }
