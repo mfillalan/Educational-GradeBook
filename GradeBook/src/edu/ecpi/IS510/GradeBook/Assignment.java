@@ -15,18 +15,12 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable (tableName = "assignments")
 public class Assignment implements Serializable{
 	private static final long serialVersionUID = 729937877153222955L;
-	@DatabaseField(id = true)
-	protected int assignmentID;
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	protected Hashtable<Long, Submission> submissions;
-	@DatabaseField
-	protected Date dueDate;
-	@DatabaseField
-	protected float weight;
-	@DatabaseField
-	protected String title;
-	@DatabaseField
-	protected String description;
+	@DatabaseField(id = true) protected int assignmentID;
+	@DatabaseField(dataType=DataType.SERIALIZABLE) protected Hashtable<Long, Submission> submissions;
+	@DatabaseField protected Date dueDate;
+	@DatabaseField protected float weight;
+	@DatabaseField protected String title;
+	@DatabaseField protected String description;
 	
 	public Assignment(String title, String description, Date dueDate, float weight){
 		submissions = new Hashtable<Long, Submission>();
@@ -44,16 +38,16 @@ public class Assignment implements Serializable{
 		this(null, 0.0f);
 	}
 	
-	public void addSubmission(Submission submission){
-		submissions.put(submission.getStudentID(), submission);
-	}
-	
 	public Submission getSubmission(long studentID){
 		return submissions.get(Long.valueOf(studentID));
 	}
-	
+
 	public Collection<Submission> getSubmissions(){
 		return submissions.values();
+	}
+
+	public void addSubmission(Submission submission){
+		submissions.put(submission.getStudentID(), submission);
 	}
 	
 	public Date getDueDate(){
