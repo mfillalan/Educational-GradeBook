@@ -26,12 +26,19 @@ public class DatabaseController {
     
     protected void createTables() throws SQLException {
     	//Create tables if they don't exist.
+    	//TableUtils.dropTable(connectionSource, Student.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Student.class);
+        //TableUtils.dropTable(connectionSource, Assignment.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Assignment.class);
+        //TableUtils.dropTable(connectionSource, Course.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Course.class);
+        //TableUtils.dropTable(connectionSource, Employee.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Employee.class);
+        //TableUtils.dropTable(connectionSource, Person.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Person.class);
+        //TableUtils.dropTable(connectionSource, Submission.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Submission.class);
+        //TableUtils.dropTable(connectionSource, Teacher.class, true);
         TableUtils.createTableIfNotExists(connectionSource, Teacher.class); 		
 	}
 
