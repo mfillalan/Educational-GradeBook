@@ -1,11 +1,11 @@
 package edu.ecpi.IS510.GradeBook;
 
-import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-import com.j256.ormlite.jdbc.*;
-import com.j256.ormlite.support.*;
+
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
 
 public class GradeBook {
 	String databaseUrl = "jdbc:h2:~/GradeBook";
