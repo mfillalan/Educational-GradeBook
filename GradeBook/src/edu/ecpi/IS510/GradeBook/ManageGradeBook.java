@@ -1,59 +1,88 @@
 package edu.ecpi.IS510.GradeBook;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
+import java.awt.EventQueue;
 
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import java.awt.GridLayout;
+
+import javax.swing.ButtonModel;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
+import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+/*import com.jgoodies.forms.factories.DefaultComponentFactory;*/
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.Hashtable;
 
 
 public class ManageGradeBook {
 
 	protected JFrame frmIsGradebookApplication;
 	
+	//Add Person Fields
 	protected JTextField firstNameField;
 	protected JTextField lastNameField;
 	protected JTextField addressField;
 	protected JTextField phoneField;
 	protected final ButtonGroup personType = new ButtonGroup();
-	protected JTextField emailField;
 	protected JRadioButton rdbtnNewRadioButton = new JRadioButton("Student");
 	protected JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Teacher");
+	protected JTextField emailField;
 	
+	//Add Course Fields
+	private int[] creditValues = new int[4];
 	protected JTextField courseNameField;
 	protected JTextField courseNumberField;
 
 	/**
-	 * Launch the application.
+	 * The class creates the window of the application, places
+	 * the fields and labels in the correct places, builds the 
+	 * tabs and attaches the correct button listeners
+	 * 
+	 * @param firstNameField JTextField accepts the first name of the user
+	 * @param lastNameField JTextField accepts the last name of the user
+	 * @param addressField JTextField accepts the address of the user
+	 * @param phoneField JTextField accepts the phone number of the user
+	 * @param emailField JTextField accepts the email address of the user
+	 * @param rdbtnNewRadioButton JRadioButton choose Student type of Person
+	 * @param rdbtnNewRadioButton_1 JRadioButton choose Teacher type of Person
+	 * @param personType JTextField accepts the first name of the user
+	 * @param courseNameField JTextField accepts the course name
+	 * @param courseNumberField JTextField accepts the course number
+	 * 
+	 * Notes:
+	 * This is a test
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ManageGradeBook window = new ManageGradeBook();
-//					window.frmIsGradebookApplication.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManageGradeBook window = new ManageGradeBook();
+					window.frmIsGradebookApplication.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}/*
+	
+	
 
 	/**
 	 * Create the application.
@@ -61,6 +90,8 @@ public class ManageGradeBook {
 	public ManageGradeBook() {
 		initialize();
 	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -72,14 +103,18 @@ public class ManageGradeBook {
 		frmIsGradebookApplication.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIsGradebookApplication.getContentPane().setLayout(null);
 		
+		//Simple label for the applicaiton
 		JLabel lblWelcomeToThe = new JLabel("IS510 GradeBook Application");
 		lblWelcomeToThe.setBounds(20, 23, 254, 14);
 		frmIsGradebookApplication.getContentPane().add(lblWelcomeToThe);
 		
+		//Creates tabbed panel
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(20, 46, 752, 505);
 		frmIsGradebookApplication.getContentPane().add(tabbedPane);
 		
+		
+		//Add 'People' pane
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("People", null, panel, null);
 		panel.setLayout(null);
@@ -88,6 +123,8 @@ public class ManageGradeBook {
 		lblThisSectionIs.setBounds(10, 11, 205, 14);
 		panel.add(lblThisSectionIs);
 		
+		
+		//****************************   BEGIN PERSON FIELDS *************** /
 		firstNameField = new JTextField("Enter Firstname");
 		firstNameField.setBounds(79, 33, 205, 20);
 		panel.add(firstNameField);
@@ -148,8 +185,16 @@ public class ManageGradeBook {
 		btnNewButton.setBounds(335, 234, 122, 23);
 		panel.add(btnNewButton);
 		
+		//Add the action listener to the Add Person button and pass in the ACTUAL fields themselves to grant access to the data
+		//that will be entered into them
 		btnNewButton.addActionListener(new PersonListener(firstNameField, lastNameField, addressField, phoneField, emailField, personType));
+
+		//****************************   END PERSON FIELDS *************** /
 		
+		
+
+		//****************************   BEGIN COURSE FIELDS *************** /
+		//Add 'Courses' pane
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Courses", null, panel_1, null);
 		panel_1.setLayout(null);
@@ -177,11 +222,25 @@ public class ManageGradeBook {
 		panel_1.add(courseNumberField);
 		courseNumberField.setColumns(10);
 		
+		//Create dropdown list of credits
+		JComboBox credits = new JComboBox();
+		credits.setModel(new DefaultComboBoxModel());
+		credits.setBounds(350, 35, 60, 22);
+		credits.addItem(1);
+		credits.addItem(2);
+		credits.addItem(3);
+		credits.addItem(4);
+		panel_1.add(credits);
+		
 		JButton btnNewButton_1 = new JButton("Add Course");
 		panel_1.add(btnNewButton_1);
 		btnNewButton_1.setBounds(331, 234, 126, 23);
-		btnNewButton_1.addActionListener(new CourseListener(courseNameField, courseNumberField));	
 		
+		//Add 'Add Course' action listener
+		btnNewButton_1.addActionListener(new CourseListener(courseNameField, courseNumberField, credits));	
+		//****************************   END COURSE FIELDS *************** /
+		
+		//Add 'Assignments' pane
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Assignments", null, panel_2, null);
 		panel_2.setLayout(null);
@@ -220,91 +279,8 @@ public class ManageGradeBook {
 		JLabel lblUseCtrlclickTo = new JLabel("Use Ctrl+click to add multiple students");
 		lblUseCtrlclickTo.setBounds(31, 175, 260, 14);
 		panel_2.add(lblUseCtrlclickTo);*/
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 782, 21);
-		frmIsGradebookApplication.getContentPane().add(menuBar);
-		
-		JMenu mnNewMenu = new JMenu("File");
-		menuBar.add(mnNewMenu);
-		
-		JMenuItem mntmSaveAll = new JMenuItem("Save all");
-		mnNewMenu.add(mntmSaveAll);
 	}
 
-	
-	protected static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			protected void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
-}
-
-class PersonListener implements ActionListener {
-	String firstName, lastName, address, email, phone, id;
-	ButtonGroup personType;
-	long personId;
-	PersonListener(JTextField firstNameField, JTextField lastNameField, JTextField addressField, JTextField phoneField, JTextField emailField, ButtonGroup personType) {
-	  this.firstName = firstNameField.getText();
-	  this.lastName = lastNameField.getText();
-	  this.address = addressField.getText();
-	  this.email = emailField.getText();
-	  this.phone = phoneField.getText();
-	  this.personType = personType;
-  }
-
-  public void actionPerformed(ActionEvent e) {
-	  String selectedButton = personType.getSelection().getActionCommand(); 
-	  System.out.println(personType.getSelection().getActionCommand());
-	  if(e.getActionCommand().equals("Add Person")){
-		  if(selectedButton == "Student"){
-			  Student newStudent = new Student();
-			  newStudent.setFirstName(this.firstName);
-			  newStudent.setLastName(this.lastName);
-			  newStudent.setAddress(this.address);
-			  newStudent.setEmail(this.email);
-			  newStudent.setPhone(this.phone);
-			  try {
-				GradeBook.dbController.studentDao.createOrUpdate(newStudent);
-				GradeBook.updateStudents();
-		        System.out.println(GradeBook.students);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		  }
-		  else{
-			  //DO STUFF HERE
-		  }
-	  }
-  }
-}
-
-
-
-class CourseListener implements ActionListener {
-	String courseName, courseNumber;
-	long personId;
-	CourseListener(JTextField courseNameField, JTextField courseNumberField) {
-	  this.courseName = courseNameField.getText();
-	  this.courseNumber = courseNumberField.getText();
-  }
-
-  public void actionPerformed(ActionEvent e) {
-	  	//DO STUFF HERE
-  }
 }
 
 

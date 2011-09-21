@@ -18,7 +18,6 @@ public class Main {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		//EGit test
 		GradeBook gradeBook = new GradeBook();
 		gradeBook.run();
 	}

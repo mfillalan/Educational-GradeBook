@@ -1,11 +1,11 @@
 package edu.ecpi.IS510.GradeBook;
 
+import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-
-import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.jdbc.*;
+import com.j256.ormlite.support.*;
 
 public class GradeBook {
 	String databaseUrl = "jdbc:h2:~/GradeBook";
@@ -58,5 +58,16 @@ public class GradeBook {
 	protected static void updateStudents() throws SQLException
 	{
 		students = dbController.studentDao.queryForAll();   
+	}
+
+	
+	protected static void updateTeachers() throws SQLException
+	{
+		teachers = dbController.teacherDao.queryForAll();   
+	}
+	
+	protected static void updateCourses() throws SQLException
+	{
+		courses = dbController.courseDao.queryForAll();   
 	}
 }
