@@ -15,7 +15,16 @@ public class Person {
 	@DatabaseField protected String phone;
 	@DatabaseField protected String email;
 	
-	public Person(){
+	public Person(String firstName, String lastName, String address, String phone, String email){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+	public Person() {
+		this("", "", "", "", "");
 	}
 	
 	/**

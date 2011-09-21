@@ -19,6 +19,16 @@ public class Student extends Person{
 	 * Used to store course information for students in order to calculate GPA
 	 */
 	protected HashMap<String, Course> courses;
+	
+	public Student(String firstName, String lastName, String address, String phone, String email) {
+		super(firstName, lastName, address, phone, email);
+		courses = new HashMap<String, Course>();
+	}
+	
+	public Student() {
+		super();
+		courses = new HashMap<String, Course>();
+	}
 
 	/**
 	 * adds a course to the courses hash table
@@ -92,11 +102,6 @@ public class Student extends Person{
 	    }
 	    GPA = totalCreditPoints/totalCredits;
 		return GPA;
-	}
-
-	public Student() {
-		super();
-		courses = new HashMap<String, Course>();
 	}
 	
 	public String toString(){
