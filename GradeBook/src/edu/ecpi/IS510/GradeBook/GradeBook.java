@@ -1,5 +1,6 @@
 package edu.ecpi.IS510.GradeBook;
 
+import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -7,43 +8,43 @@ import com.j256.ormlite.jdbc.*;
 import com.j256.ormlite.support.*;
 
 public class GradeBook {
+	String databaseUrl = "jdbc:h2:~/GradeBook";
+	String username = "sa";
+	String password = "";	
+    protected ConnectionSource connectionSource;
+	protected static DatabaseController dbController;
+	
+	protected static List<Student> students;
+	protected static List<Assignment> assignments;
+	protected static List<Course> courses;
+	protected static List<Employee> employees;
+	protected static List<Person> people;
+	protected static List<Teacher> teachers;	
 	
 	public GradeBook(){
 	}
 	
+	
 	public void run() throws SQLException{
-		String databaseUrl = "jdbc:h2:~/GradeBook";
-		String username = "sa";
-		String password = "";
+		connectionSource = new JdbcConnectionSource(databaseUrl, username, password);
+		dbController = new DatabaseController(connectionSource);
 		
-	    ConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl, username, password);
-		DatabaseController dbController = new DatabaseController(connectionSource);
-		
-		List<Student> students;
-		List<Assignment> assignments;
-		List<Course> courses;
-		List<Employee> employees;
-		List<Person> people;
-		List<Teacher> teachers;
-		
-        students = dbController.studentDao.queryForAll();        
+        students = dbController.studentDao.queryForAll();   
         assignments = dbController.assignmentDao.queryForAll();
         courses = dbController.courseDao.queryForAll();
         employees = dbController.employeeDao.queryForAll();
         people = dbController.personDao.queryForAll();
         teachers = dbController.teacherDao.queryForAll();
-		
-        Student student1 = new Student();
-        student1 = students.get(2);
         
-        dbController.studentDao.createOrUpdate(student1);
+        System.out.println(students);
         
-		printList(students);
-		printList(assignments);
-		printList(courses);
-		printList(employees);
-		printList(people);
-		printList(teachers);
+        try{
+			ManageGradeBook window = new ManageGradeBook();
+			window.frmIsGradebookApplication.setVisible(true);
+		} 
+        catch (Exception e) {
+			e.printStackTrace();
+		}        
 	}
 	
 	private static void printList(List<?> list){
@@ -52,5 +53,10 @@ public class GradeBook {
 			Object s = iterator.next();
 			System.out.println(s.toString());
 		}
+	}
+	
+	protected static void updateStudents() throws SQLException
+	{
+		students = dbController.studentDao.queryForAll();   
 	}
 }
